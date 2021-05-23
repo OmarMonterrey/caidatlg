@@ -1,0 +1,75 @@
+const card = [
+	"CAADAQADLAADYi6nMcpUnaVVOWBtAg", // 1 Oro
+	"CAADAQADLQADYi6nMaCo49BROU8CAg", // 2 Oro
+	"CAADAQADLgADYi6nMb7-F94s8J-vAg", // 3 Oro
+	"CAADAQADLwADYi6nMZ3ZY0orSXWmAg", // 4 Oro
+	"CAADAQADMAADYi6nMQuUnr8cpN-3Ag", // 5 Oro
+	"CAADAQADMQADYi6nMWjokhn_zmSsAg", // 6 Oro
+	"CAADAQADMgADYi6nMYYuJi2raSmhAg", // 7 Oro
+	"CAADAQADMwADYi6nMSYKscIFxq3tAg", // 8 Oro
+	"CAADAQADNAADYi6nMd0ahBCkCZIwAg", // 9 Oro
+	"CAADAQADNQADYi6nMThFB7FHr-AMAg", // 10 Oro
+	"CAADAQADNgADYi6nMRVNa7npdkm1Ag", // 1 Copas
+	"CAADAQADNwADYi6nMZ7HcSXO7UJoAg", // 2 Copas
+	"CAADAQADOAADYi6nMTELFg6TuGUaAg", // 3 Copas
+	"CAADAQADOQADYi6nMTnfJCB4rX37Ag", // 4 Copas
+	"CAADAQADOgADYi6nMe3FIqbp-G9EAg", // 5 Copas
+	"CAADAQADOwADYi6nMTqyLST8WTf4Ag", // 6 Copas
+	"CAADAQADPAADYi6nMXV0qu_UEkjJAg", // 7 Copas
+	"CAADAQADPQADYi6nMcfJ0xWHaGdfAg", // 8 Copas
+	"CAADAQADPgADYi6nMTGB7olcz6aWAg", // 9 Copas
+	"CAADAQADPwADYi6nMfVudaFs6S-UAg", // 10 Copas
+	"CAADAQADQAADYi6nMaKcrdb4gnb5Ag", // 1 Espadas
+	"CAADAQADQQADYi6nMWdLDzyAh_FkAg", // 2 Espadas
+	"CAADAQADQgADYi6nMSfPgp1LkJxMAg", // 3 Espadas
+	"CAADAQADQwADYi6nMSVxhHTYOwABxgI",// 4 Espadas
+	"CAADAQADRAADYi6nMZ5GiAqxV6CGAg", // 5 Espadas
+	"CAADAQADRQADYi6nMal7PViZVUOdAg", // 6 Espadas
+	"CAADAQADRgADYi6nMSXB6kx_VjSiAg", // 7 Espadas
+	"CAADAQADRwADYi6nMdk12Yarp56SAg", // 8 Espadas
+	"CAADAQADSAADYi6nMc5BiIgfyjZnAg", // 9 Espadas
+	"CAADAQADSQADYi6nMXs2HCFUUtRSAg", // 10 Espadas
+	"CAADAQADSgADYi6nMeoQTLpU8F9fAg", // 1 Bastos
+	"CAADAQADSwADYi6nMd_nL581Ea2eAg", // 2 Bastos
+	"CAADAQADTAADYi6nMeOs2Nd0fwUQAg", // 3 Bastos
+	"CAADAQADTQADYi6nMcpWEz611QMGAg", // 4 Bastos
+	"CAADAQADTgADYi6nMWnaSUOda4ilAg", // 5 Bastos
+	"CAADAQADTwADYi6nMaVjO66eFlV3Ag", // 6 Bastos
+	"CAADAQADUAADYi6nMZ3iV6SLLZmZAg", // 7 Bastos
+	"CAADAQADUQADYi6nMff05o2nsc-GAg", // 8 Bastos
+	"CAADAQADUgADYi6nMew-xy3tLYA2Ag", // 9 Bastos
+	"CAADAQADUwADYi6nMTdZA62pKySSAg", // 10 Bastos
+	"CAADAQADVwADYi6nMf3HfpXCvpLuFgQ" // 1 Copas
+]
+var info = {
+	caida: "CAADAQADVQADYi6nMcs7qNZNzAs4Ag",
+	ultimas: "CAADAQADVgADYi6nMT5y1t24m6bBAg"
+}
+var action = {
+	'Abandonar': "CAADAQADWAADYi6nMdxVV8MH_PMCFgQ",
+	'Ayuda': "CAADAQADWQADYi6nMX9KFk_pixFlFgQ",
+	'Crear': "CAADAQADWgADYi6nMVoBaNM7pAfvFgQ",
+	'Entrar': "CAADAQADWwADYi6nMdswjhbZy3MQFgQ",
+	'Iniciar': "CAADAQADXAADYi6nMX-3DYvDDUOQFgQ",
+	'Jugadores': "CAADAQADXQADYi6nMQPpXc8spqizFgQ",
+	'Kick1': "CAADAQADXgADYi6nMUTTO8kb0pyDFgQ",
+	'Kick2': "CAADAQADXwADYi6nMZvPUZbzkATnFgQ",
+	'Kick3': "CAADAQADYAADYi6nMYDa7ZpX71MVFgQ",
+	'Kick4': "CAADAQADYQADYi6nMWviNcAz7GP2FgQ",
+	'Lanzar1': "CAADAQADYgADYi6nMWlZzEFpgFZOFgQ",
+	'Lanzar4': "CAADAQADYwADYi6nMTl5rI3u81J4FgQ",
+	'Parejas': "CAADAQADZAADYi6nMU-onDUqzWcCFgQ",
+	'Puntos': "CAADAQADZQADYi6nMe5GG3skMS5KFgQ",
+	'Repartir': "CAADAQADZgADYi6nMb-rEM6IXp9AFgQ",
+	'Salir': "CAADAQADZwADYi6nMfxHKLfBnS4QFgQ",
+	'Sentar1': "CAADAQADaAADYi6nMfjSigNoVpS9FgQ",
+	'Sentar2': "CAADAQADaQADYi6nMbXCCP_dHrJOFgQ",
+	'Sentar3': "CAADAQADagADYi6nMcLPvVVQTYTqFgQ",
+	'Sentar4': "CAADAQADawADYi6nMQ0xzhJE-hCkFgQ",
+	'Terminar': "CAADAQADbAADYi6nMdZ7BJosuvQYFgQ",
+	'Mesa': "CAADAQADbQADYi6nMTAXZu_POezkFgQ"
+}
+
+module.exports = {
+	card, info, action
+};

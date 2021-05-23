@@ -1,0 +1,13 @@
+{
+  "name": "caidatlg",
+  "version": "1.0.0",
+  "description": "Telegram bot for playing Caida",
+  "main": "init.js",
+  "repository": "https://github.com/OmarMonterrey/caidatlg",
+  "author": "Omar Monterrey",
+  "license": "XD",
+  "private": true,
+  "dependencies": {
+    "telegraf": "^4.3.0"
+  }
+}
