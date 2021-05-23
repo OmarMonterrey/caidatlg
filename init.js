@@ -125,11 +125,9 @@ bot.on('text', (ctx) => {
 	}
 
 	if( (M = text.match(/\/play ([0-3])/)) && P && P.checkTurn(person.userId)){
-		console.log(M[1]);
 		let cartas = R.partida.getHand(person.userId);
-		console.log(cartas);
 		let cardIndex = parseInt( M[1] );
-		if(cartas[ cardIndex ])
+		if(typeof cartas[ cardIndex ] !== 'undefined')
 			P.play( cartas[ cardIndex ] );
 	}
 	if(text === '/puntos' && P){
