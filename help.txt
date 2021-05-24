@@ -1,0 +1,22 @@
+Una vez los usuarios se sientan ( /sentar ) e inicias ( /iniciar ) una partida, se deben /repartir las cartas y <b>/lanzar [1/4]</b> <i>echar la mesa</i>.
+Para ver tus cartas debes escribir en el chat "@Caidapuntobot " con espacio incluído y esperar un poco, de esta forma sólo tú podrás ver tus cartas. También puedes clickear "Vía @Caidapuntobot" en la parte superior de algunos mensajes.
+
+<b>COMANDOS PARA TODOS</b>
+<b>/sentar [1/2/3/4]</b> - Siéntate en un puesto específico <i>[Puedes usar un número]</i>
+/parar - Te paras de tu silla
+/jugadores - Ver jugadores sentados en la mesa
+/mesa - Ver cartas actuales en mesa
+/puntos - Listado de puntos actuales
+/repartir - Reparte las cartas
+<b>/lanzar [1/4]</b> - Lanza la primera carta de la mesa <i>[Puedes usar un número]</i>
+
+/ayuda - Muestra este texto :)
+
+<b>COMANDOS PARA ADMINISTRADORES</b>
+/iniciar - Comienza la partida
+/parejas - Comienza la partida en parejas
+/detener - Termina antes de tiempo la partida actual
+<b>/kick [1/2/3/4]</b> - Vacía un puesto específico <i>[Requiere un número]</i>
+
+<i>Pendiente:</i> Mejorarlo si me da el tiempo xDD
+<i>Ideas, bugs y dudas:</i> @OmarMonterrey

@@ -176,6 +176,10 @@ bot.on('text', (ctx) => {
 		ctx.replyWithPhoto( tableToImage(P.gameData.table), {caption: 'Mesa actual', parse_mode:'HTML'} ).catch(err => console.log(err.on.method));
 	}
 
+	if(text === '/ayuda'){
+		let txt = require('fs').readFileSync('help.txt', 'utf8');
+		ctx.replyWithHTML( txt ).catch(err => console.log(err));
+	}
 })
 
 
