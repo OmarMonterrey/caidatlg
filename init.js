@@ -51,7 +51,7 @@ bot.use(function(ctx, next){
 
 
 bot.on('text', (ctx) => {
-	if(ctx.message.chat.type!=='group'){
+	if(ctx.message.chat.type!=='group' && ctx.message.chat.type !=='supergroup'){
 		ctx.reply(`Este bot sólo funciona en grupos`).catch(err => console.log(err.on.method))
 		return;
 	}
