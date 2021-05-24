@@ -7,6 +7,7 @@ const Room = require('./core/room');
 const bindEvents = require('./binds.js');
 const Stickers = require('./stickers.js');
 const MS = require('./messageStack.js');
+const tableToImage = require('./tableToImage.js');
 
 let RoomList = {};
 
@@ -117,6 +118,9 @@ bot.on('text', (ctx) => {
 
 
 
+
+
+
 	if(text === '/iniciar' && person.isAdmin){
 		if(R.start(Partida) === true){
 			ctx.reply('Juego iniciado :)').catch(err => console.log(err.on.method));
@@ -157,6 +161,10 @@ bot.on('text', (ctx) => {
 			response+= `<b>${name}</b>: ${total}\n`;
 		});
 		ctx.replyWithHTML(response).catch(err => console.log(err.on.method));
+	}
+
+	if(text === '/mesa' && P){
+		ctx.replyWithPhoto( tableToImage(P.gameData.table), {caption: 'Mesa actual', parse_mode:'HTML'} ).catch(err => console.log(err.on.method));
 	}
 
 })
