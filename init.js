@@ -130,6 +130,15 @@ bot.on('text', (ctx) => {
 		}
 	}
 
+	if(text === '/parejas' && person.isAdmin){
+		if(R.start(Partida, true) === true){
+			ctx.reply('Juego iniciado :)').catch(err => console.log(err.on.method));
+			bindEvents(R.partida, ctx, messageStack);
+		} else {
+			ctx.reply('Error al iniciar :(').catch(err => console.log(err.on.method));
+		}
+	}
+
 	if(text === '/detener' && person.isAdmin){
 		R.stop();
 		ctx.reply('Juego detenido').catch(err => console.log(err.on.method));
