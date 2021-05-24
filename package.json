@@ -8,6 +8,7 @@
   "license": "XD",
   "private": true,
   "dependencies": {
+    "dotenv": "^10.0.0",
     "telegraf": "^4.3.0"
   }
 }

@@ -1,5 +1,8 @@
 var stickers = require('../stickers.js');
-function tableCardPlaced(P, ctx, cardId, guess){
-	ctx.reply(`\¡\¡\¡*${guess}*\\\!\\\!\\\!: ${P.getCardName(cardId)}`, {parse_mode: 'MarkdownV2'});
+function tableCardPlaced(P, ctx, messageStack, cardId, guess){
+	messageStack.push({
+		chatId: ctx.message.chat.id,
+		content: `¡¡¡<b>${guess}</b>!!! ${P.getCardName(cardId)}`
+	});
 }
 module.exports = tableCardPlaced;

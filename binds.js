@@ -5,10 +5,10 @@ require('fs').readdirSync(__dirname + '/events/').forEach(function(file) {
 		defaultBinds[name] = require('./events/' + file);
 	}
 });
-function bindEvents(P, ctx){
+function bindEvents(P, ctx, messageStack){
 	Object.entries(defaultBinds).forEach(singleBind => {
 		if(typeof singleBind[1] !== 'function') return;
-		P.on(singleBind[0], (...args) => singleBind[1](P, ctx, ...args))
+		P.on(singleBind[0], (...args) => singleBind[1](P, ctx, messageStack, ...args))
 	})
 }
 module.exports = bindEvents;

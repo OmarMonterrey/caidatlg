@@ -1,10 +1,12 @@
+require('dotenv').config()
 const Telegraf = require('telegraf').Telegraf;
-const bot = new Telegraf('1882003557:AAF-3zqh4zOdJLebtMFd-m1o0jACzf1VHDs')
-const botName = 'caidatlg_testbot';
+const bot = new Telegraf(process.env.TOKEN)
+const botName = process.env.BOTNAME;
 const Partida = require('./core/partida');
 const Room = require('./core/room');
 const bindEvents = require('./binds.js');
 const Stickers = require('./stickers.js');
+const MS = require('./messageStack.js');
 
 let RoomList = {};
 
@@ -28,7 +30,7 @@ function getUserRoom(userId){
 	}
 	return false;
 }
-
+var messageStack = new MS;
 
 bot.command('quit', (ctx) => {
 	ctx.leaveChat()
@@ -49,14 +51,14 @@ bot.use(function(ctx, next){
 
 bot.on('text', (ctx) => {
 	if(ctx.message.chat.type!=='group'){
-		ctx.reply(`Este bot sólo funciona en grupos`)
+		ctx.reply(`Este bot sólo funciona en grupos`).catch(err => console.log(err.on.method))
 		return;
 	}
 	let R = getRoom(ctx.message.chat.id);
 	let person = getPerson( ctx.update.message.from );
 	let R2 = getUserRoom(person.userId);
 	if(R2!==false && R != R2){
-		ctx.reply(`${person.userName} ya está jugando en otro grupo!`);
+		ctx.reply(`${person.userName} ya está jugando en otro grupo!`).catch(err => console.log(err.on.method));
 		return;
 	}
 	let text = ctx.update.message.text;
@@ -65,24 +67,41 @@ bot.on('text', (ctx) => {
 	if( M = text.match(/\/sentar( [1-4])?/) ){
 		let slot = M[1] ? parseInt( M[1] )-1 : false;
 		if(R.sit(person, slot) === true){
-			ctx.reply('Sentado con éxito :)');
+			ctx.reply('Sentado con éxito :)').catch(err => console.log(err.on.method));
 		} else {
-			ctx.reply('Error al sentar :(');
+			ctx.reply('Error al sentar :(').catch(err => console.log(err.on.method));
+		}
+	}
+	if( M = text.match(/\/echar ([1-4])/) ){
+		let slot = parseInt( M[1] )-1;
+		if(R.kick(slot) === true){
+			ctx.reply('Echado con éxito :)').catch(err => console.log(err.on.method));
+		} else {
+			ctx.reply('Error al echar :(').catch(err => console.log(err.on.method));
 		}
 	}
 	if( M = text.match(/\/bot( [1-4])?/) ){
 		let slot = M[1] ? parseInt( M[1] )-1 : false;
 		if(R.addBot(slot) === true){
-			ctx.reply('Bot creado con éxito :)');
+			ctx.reply('Bot creado con éxito :)').catch(err => console.log(err.on.method));
 		} else {
-			ctx.reply('Error al crear bot :(');
+			ctx.reply('Error al crear bot :(').catch(err => console.log(err.on.method));
 		}
+	}
+
+	if(text === '/gameBot'){
+		R.addBot();
+		R.addBot();
+		R.addBot();
+		R.addBot();
+		R.start(Partida);
+		bindEvents(R.partida, ctx, messageStack);
 	}
 	if(text === '/parar'){
 		if(R.stand(person)){
-			ctx.reply('Silla abandonada con éxito :)');
+			ctx.reply('Silla abandonada con éxito :)').catch(err => console.log(err.on.method));
 		} else {
-			ctx.reply('Error al abandonar silla :(');
+			ctx.reply('Error al abandonar silla :(').catch(err => console.log(err.on.method));
 		}
 	}
 
@@ -91,25 +110,25 @@ bot.on('text', (ctx) => {
 		let response = "";
 		Object.entries(chairs).forEach( e => {
 			let [number, name] = e;
-			response+= `*Silla ${number}*: ${name}\n`;
+			response+= `<b>Silla ${number}</b>: ${name}\n`;
 		});
-		ctx.reply(response, {parse_mode: 'MarkdownV2'});
+		ctx.replyWithHTML(response).catch(err => console.log(err.on.method));
 	}
 
 
 
 	if(text === '/iniciar' && person.isAdmin){
 		if(R.start(Partida) === true){
-			ctx.reply('Juego iniciado :)');
-			bindEvents(R.partida, ctx);
+			ctx.reply('Juego iniciado :)').catch(err => console.log(err.on.method));
+			bindEvents(R.partida, ctx, messageStack);
 		} else {
-			ctx.reply('Error al iniciar :(');
+			ctx.reply('Error al iniciar :(').catch(err => console.log(err.on.method));
 		}
 	}
 
 	if(text === '/detener' && person.isAdmin){
 		R.stop();
-		ctx.reply('Juego detenido');
+		ctx.reply('Juego detenido').catch(err => console.log(err.on.method));
 	}
 
 
@@ -117,7 +136,7 @@ bot.on('text', (ctx) => {
 	let P = R.partida || false;
 	if(text === '/repartir' && P && P.checkTurn(person.userId, true)){
 		if(P.deal()!==true){
-			ctx.reply('Error al repartir.');
+			ctx.reply('Error al repartir.').catch(err => console.log(err.on.method));
 		}
 	}
 	if( M = text.match(/\/lanzar (1|4)/) && P && P.checkTurn(person.userId, true)){
@@ -137,8 +156,9 @@ bot.on('text', (ctx) => {
 			let [name, total] = e;
 			response+= `<b>${name}</b>: ${total}\n`;
 		});
-		ctx.replyWithHTML(response);
+		ctx.replyWithHTML(response).catch(err => console.log(err.on.method));
 	}
+
 })
 
 
@@ -203,7 +223,20 @@ bot.on('inline_query', (ctx) => {
 	}
 })
 
-bot.launch()
+bot.launch();
+
+setInterval(() => {
+
+	let messages = messageStack.get();
+	Object.entries(messages).forEach(singleMessage => {
+		[chatId, text] = singleMessage;
+		text = text.join("\n");
+		bot.telegram.sendMessage(chatId, text, {parse_mode: 'HTML'}).catch(err => console.log(err.on.method));
+	});
+
+
+}, 2000);
+
 
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))

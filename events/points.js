@@ -1,4 +1,4 @@
-function points(P, ctx, userIndex, valor, reason){
+function points(P, ctx, messageStack, userIndex, valor, reason){
 	let player = P.players[userIndex];
 	let message;
 	switch(reason){
@@ -26,6 +26,9 @@ function points(P, ctx, userIndex, valor, reason){
 	}
 	message = message.replace("%u", player.userName);
 	message = message.replace("%p", (valor == 1 ? "1 punto" : valor + " puntos"));
-	ctx.reply(message);
+	messageStack.push({
+		chatId: ctx.message.chat.id,
+		content: message
+	});
 }
 module.exports = points;
